@@ -47,3 +47,99 @@ docker run -p 8000:8000 tasks-api
 az login
 az group create --name tasks-api-rg --location eastus
 az containerapp up --name tasks-api --resource-group tasks-api-rg --image <your-image>
+
+## API Endpoints
+✈️ API Endpoints (Pilot / Airport / Airplane Analogy)
+Your API works like an airport passenger management system.
+Each task = a passenger.
+Your FastAPI backend = air‑traffic control.
+You (the developer) = the pilot.
+
+Below are the endpoints and what they mean in the analogy.
+
+Create a Task
+POST /tasks/  
+🛫 Add a new passenger to the airplane.
+
+Request
+
+json
+{
+  "title": "Buy groceries",
+  "description": "Milk, eggs, bread",
+  "completed": false
+}
+Response
+
+json
+{
+  "id": 1,
+  "title": "Buy groceries",
+  "description": "Milk, eggs, bread",
+  "completed": false
+}
+Get All Tasks
+GET /tasks/  
+🧾 View the full passenger list before takeoff.
+
+Response
+
+json
+[
+  {
+    "id": 1,
+    "title": "Buy groceries",
+    "description": "Milk, eggs, bread",
+    "completed": false
+  },
+  {
+    "id": 2,
+    "title": "Finish project",
+    "description": "Complete FastAPI backend",
+    "completed": true
+  }
+]
+Get a Single Task
+GET /tasks/1  
+🎫 Check one passenger’s ticket.
+
+Response
+
+json
+{
+  "id": 1,
+  "title": "Buy groceries",
+  "description": "Milk, eggs, bread",
+  "completed": false
+}
+Update a Task
+PUT /tasks/1  
+🛠️ Update a passenger’s seat or details.
+
+Request
+
+json
+{
+  "title": "Buy groceries and fruits",
+  "description": "Milk, eggs, bread, apples",
+  "completed": false
+}
+Response
+
+json
+{
+  "id": 1,
+  "title": "Buy groceries and fruits",
+  "description": "Milk, eggs, bread, apples",
+  "completed": false
+}
+Delete a Task
+DELETE /tasks/1  
+❌ Remove a passenger from the flight.
+
+Response
+
+json
+{
+  "message": "Task deleted successfully"
+}

@@ -1,39 +1,69 @@
-# Project 1 — Cloud Tasks API  
+# **Project 1 — Cloud Tasks API**
+
 <p align="left">
 
-  <!-- Python -->
   <img src="https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python&logoColor=white" />
-
-  <!-- FastAPI -->
   <img src="https://img.shields.io/badge/FastAPI-Tasks%20API-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
-
-  <!-- SQLite -->
   <img src="https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white" />
-
-  <!-- Docker -->
   <img src="https://img.shields.io/badge/Docker-Containerized-0db7ed?style=for-the-badge&logo=docker&logoColor=white" />
-
-  <!-- Azure Container Apps -->
   <img src="https://img.shields.io/badge/Azure-Container%20Apps-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white" />
-
-  <!-- GitHub Actions -->
   <img src="https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-2088FF?style=for-the-badge&logo=githubactions&logoColor=white" />
+  <img src="https://img.shields.io/badge/Deployed%20on-Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white" />
 
 </p>
-<img src="https://img.shields.io/badge/Deployed%20on-Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white" />
 
+A lightweight, cloud‑ready **Task Management API** built with FastAPI and SQLite, containerized with Docker, and deployable to Azure Container Apps.
 
-FastAPI backend with SQLite, Docker, and Azure deployment.
+---
 
-## 🚀 Features
-- FastAPI CRUD API for managing tasks  
-- SQLite database (local development)  
-- Dockerfile for containerization  
-- docker-compose for local orchestration  
-- Ready for Azure Container Apps deployment  
-- Clean project structure
+## 📌 **Overview**
 
-## 📁 Project Structure
+This API provides a simple, production‑ready backend for managing tasks using:
+
+- FastAPI (Python)
+- SQLite database
+- Docker containerization
+- Azure Container Apps deployment
+- Automatic Swagger documentation
+
+✔ Supports full CRUD operations  
+✔ Clean project structure  
+✔ Cloud‑ready architecture  
+
+---
+
+## 🏗️ **Architecture**
+
+```
+                ┌──────────────────────────┐
+                │      FastAPI Backend     │
+                │  (app/main.py, routers)  │
+                └─────────────┬────────────┘
+                              │
+                              │ SQLite (tasks.db)
+                              ▼
+                ┌──────────────────────────┐
+                │        SQLite DB         │
+                │   (local file storage)   │
+                └──────────────────────────┘
+
+                ┌──────────────────────────┐
+                │      Docker Container    │
+                │  (FastAPI + SQLite)      │
+                └─────────────┬────────────┘
+                              │
+                              ▼
+                ┌──────────────────────────┐
+                │  Azure Container Apps    │
+                │   (public HTTPS API)     │
+                └──────────────────────────┘
+```
+
+---
+
+## 📁 **Project Structure**
+
+```
 project-1-cloud-tasks-api/
 │
 ├── app/
@@ -49,121 +79,111 @@ project-1-cloud-tasks-api/
 ├── docker-compose.yml
 ├── requirements.txt
 └── README.md
+```
 
-## ▶️ Running Locally
+---
 
-### 1. Install dependencies
+## ▶️ **Running Locally**
+
+### 1️⃣ Install dependencies
+
+```
 pip install -r requirements.txt
+```
 
-### 2. Start the API
+### 2️⃣ Start the API
+
+```
 uvicorn app.main:app --reload
+```
 
-### 3. Open Swagger UI
+### 3️⃣ Open Swagger UI
+
+```
 http://localhost:8000/docs
+```
 
-## 🐳 Running with Docker
+---
 
+## 🐳 **Running with Docker**
+
+### Build the image
+
+```
 docker build -t tasks-api .
+```
+
+### Run the container
+
+```
 docker run -p 8000:8000 tasks-api
+```
 
-## ☁️ Deploying to Azure (Container Apps)
+---
 
+## ☁️ **Deploying to Azure (Container Apps)**
+
+### Login
+
+```
 az login
+```
+
+### Create Resource Group
+
+```
 az group create --name tasks-api-rg --location eastus
-az containerapp up --name tasks-api --resource-group tasks-api-rg --image <your-image>
+```
 
-## API Endpoints
-✈️ API Endpoints (Pilot / Airport / Airplane Analogy)
-Your API works like an airport passenger management system.
-Each task = a passenger.
-Your FastAPI backend = air‑traffic control.
-You (the developer) = the pilot.
+### Build & Push Image to ACR  
+(Replace `<ACR_NAME>`)
 
-Below are the endpoints and what they mean in the analogy.
+```
+az acr build --registry <ACR_NAME> --image tasks-api:v1 .
+```
 
-Create a Task
-POST /tasks/  
-🛫 Add a new passenger to the airplane.
+### Deploy to Azure Container Apps
 
-Request
+```
+az containerapp up \
+  --name tasks-api \
+  --resource-group tasks-api-rg \
+  --image <ACR_NAME>.azurecr.io/tasks-api:v1 \
+  --target-port 8000 \
+  --ingress external
+```
 
-json
-{
-  "title": "Buy groceries",
-  "description": "Milk, eggs, bread",
-  "completed": false
-}
-Response
+---
 
-json
-{
-  "id": 1,
-  "title": "Buy groceries",
-  "description": "Milk, eggs, bread",
-  "completed": false
-}
-Get All Tasks
-GET /tasks/  
-🧾 View the full passenger list before takeoff.
+# ✈️ **API Endpoints (Airport Analogy)**  
+Your API works like an **airport passenger management system**.
 
-Response
+- Each **task = passenger**  
+- FastAPI backend = **air‑traffic control**  
+- You (developer) = **pilot**  
 
-json
-[
-  {
-    "id": 1,
-    "title": "Buy groceries",
-    "description": "Milk, eggs, bread",
-    "completed": false
-  },
-  {
-    "id": 2,
-    "title": "Finish project",
-    "description": "Complete FastAPI backend",
-    "completed": true
-  }
-]
-Get a Single Task
-GET /tasks/1  
-🎫 Check one passenger’s ticket.
+### **Create a Task**  
+🛫 Add a new passenger  
+`POST /tasks/`
 
-Response
+### **Get All Tasks**  
+🧾 View the passenger list  
+`GET /tasks/`
 
-json
-{
-  "id": 1,
-  "title": "Buy groceries",
-  "description": "Milk, eggs, bread",
-  "completed": false
-}
-Update a Task
-PUT /tasks/1  
-🛠️ Update a passenger’s seat or details.
+### **Get a Single Task**  
+🎫 Check a passenger’s ticket  
+`GET /tasks/{id}`
 
-Request
+### **Update a Task**  
+🛠️ Update passenger details  
+`PUT /tasks/{id}`
 
-json
-{
-  "title": "Buy groceries and fruits",
-  "description": "Milk, eggs, bread, apples",
-  "completed": false
-}
-Response
+### **Delete a Task**  
+❌ Remove a passenger  
+`DELETE /tasks/{id}`
 
-json
-{
-  "id": 1,
-  "title": "Buy groceries and fruits",
-  "description": "Milk, eggs, bread, apples",
-  "completed": false
-}
-Delete a Task
-DELETE /tasks/1  
-❌ Remove a passenger from the flight.
+---
 
-Response
+## 📝 **About**
 
-json
-{
-  "message": "Task deleted successfully"
-}
+Cloud Tasks API using FastAPI, SQLite, Docker, and Azure Container Apps.

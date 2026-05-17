@@ -1,4 +1,26 @@
 # Project 1 — Cloud Tasks API  
+<p align="left">
+
+  <!-- Python -->
+  <img src="https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python&logoColor=white" />
+
+  <!-- FastAPI -->
+  <img src="https://img.shields.io/badge/FastAPI-Tasks%20API-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
+
+  <!-- SQLite -->
+  <img src="https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white" />
+
+  <!-- Docker -->
+  <img src="https://img.shields.io/badge/Docker-Containerized-0db7ed?style=for-the-badge&logo=docker&logoColor=white" />
+
+  <!-- Azure Container Apps -->
+  <img src="https://img.shields.io/badge/Azure-Container%20Apps-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white" />
+
+  <!-- GitHub Actions -->
+  <img src="https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-2088FF?style=for-the-badge&logo=githubactions&logoColor=white" />
+
+</p>
+
 FastAPI backend with SQLite, Docker, and Azure deployment.
 
 ## 🚀 Features
